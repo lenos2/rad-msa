@@ -3,6 +3,7 @@ package com.kapture.mystreezofafrica.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,6 +16,10 @@ import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringListener;
 import com.facebook.rebound.SpringSystem;
 import com.kapture.mystreezofafrica.R;
+import com.stfalcon.frescoimageviewer.ImageViewer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,11 +65,21 @@ public class TourDetailsFragment extends Fragment implements SpringListener{
                     case MotionEvent.ACTION_DOWN:
                         // When pressed start solving the spring to 1.
                         mSpring.setEndValue(1);
+
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
                         // When released start solving the spring to 0.
                         mSpring.setEndValue(0);
+                        ArrayList<String> pics = new ArrayList<String>();
+                        pics.add("https://firebasestorage.googleapis.com/v0/b/mystreez-5a20b.appspot.com/o/leapardrock.png?alt=media&token=00c2ca90-aefb-481b-882b-2495f747b29f");
+
+
+
+                        new ImageViewer.Builder(view.getContext(), pics)
+
+                                .setStartPosition(000000)
+                                .show();
                         break;
                 }
                 return true;

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "910731492007-nradli5jhtjg7solh86ntfv53hmf5m6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kapture.mystreezofafrica",
+            "certificate_hash": "9ece8e9ab212c5e1915ad3891383a08e0dfef108"
+          }
+        },
+        {
           "client_id": "910731492007-ud5oh7radeqoli17fdfa2qg0b57gflfv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

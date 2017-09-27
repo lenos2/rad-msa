@@ -93,12 +93,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
-                android:text="USERNAME"
+                android:text="EMAIL"
                 android:textColor="#DEFFFFFF"
                 android:textSize="13dp" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -120,7 +120,7 @@
                 android:textSize="13dp" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -165,7 +165,7 @@
 
 
                 <com.facebook.login.widget.LoginButton
-                    android:id="@+id/login_button"
+                    android:id="@+id/facebook_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

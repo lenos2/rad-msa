@@ -19,7 +19,7 @@ import com.kapture.mystreezofafrica.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ToursFragment extends Fragment implements SpringListener, View.OnTouchListener{
+public class ToursFragment extends Fragment implements SpringListener{
 
 
     View img1,img2,img3,img4,img5,img6;
@@ -57,6 +57,7 @@ public class ToursFragment extends Fragment implements SpringListener, View.OnTo
         mSpring.setSpringConfig(config);
 
 
+
         v = view;
         img1 = view.findViewById(R.id.vicfallsview);
 
@@ -67,16 +68,148 @@ public class ToursFragment extends Fragment implements SpringListener, View.OnTo
         img6 = view.findViewById(R.id.vicfallsview6);
 
 
-        img1.setOnTouchListener(this);
+        img1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("The Magnificent Vic falls");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+
+                        break;
+                }
+                return true;
+            }
+        });
 
 
-        img2.setOnTouchListener(this);
+        img2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
 
-        img3.setOnTouchListener(this);
-        img4.setOnTouchListener(this);
-        img5.setOnTouchListener(this);
+                        break;
+                }
+                return true;
+            }
+        });
 
-        img6.setOnTouchListener(this);
+        img3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+
+                        break;
+                }
+                return true;
+            }
+        });
+        img4.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+
+                        break;
+                }
+                return true;
+            }
+        });
+        img5.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+
+                        break;
+                }
+                return true;
+            }
+        });
+
+        img6.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        // When pressed start solving the spring to 1.
+                        mView = view;
+                        mSpring.setEndValue(1);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+                        listener.onClick("");
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        // When released start solving the spring to 0.
+                        mSpring.setEndValue(0);
+
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -104,31 +237,10 @@ public class ToursFragment extends Fragment implements SpringListener, View.OnTo
 
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // When pressed start solving the spring to 1.
-                mView = view;
-                mSpring.setEndValue(1);
-                break;
-            case MotionEvent.ACTION_UP:
-                // When released start solving the spring to 0.
-                mSpring.setEndValue(0);
-                listener.onClick();
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                // When released start solving the spring to 0.
-                mSpring.setEndValue(0);
-
-                break;
-        }
-        return true;
-    }
 
 
     public interface DetailsListener{
-        void onClick();
+        void onClick(String tour);
     }
 
     private DetailsListener listener;

@@ -1,6 +1,7 @@
 package com.kapture.mystreezofafrica.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -21,14 +24,17 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.api.BooleanResult;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kapture.mystreezofafrica.R;
+import com.kapture.mystreezofafrica.pojos.User;
 
 import static com.facebook.internal.FacebookDialogFragment.TAG;
 
@@ -41,6 +47,9 @@ public class SignUpOptionsFragment extends Fragment {
     static CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     LoginManager loginManager;
+    EditText etEmail,etPassword,etReenterPassword,etUserName;
+    Button btnRegister;
+    ProgressDialog progressDialog;
 
     View v;
 
@@ -74,7 +83,7 @@ public class SignUpOptionsFragment extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                Toast.makeText(v.getContext(),"Zvaita",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(),"Zvaita",Toast.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -100,8 +109,76 @@ public class SignUpOptionsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //v = view;
-        mAuth = FirebaseAuth.getInstance();
+        etEmail = (EditText)v.findViewById(R.id.etEmail);
+        etPassword = (EditText)v.findViewById(R.id.etPassword);
+        etReenterPassword = (EditText)v.findViewById(R.id.etReenterPassword);
+        etUserName = (EditText)v.findViewById(R.id.etUserName);
+
+        btnRegister = (Button) v.findViewById(R.id.btnRegister);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String email = etEmail.getText().toString().trim(),
+                        password = etPassword.getText().toString(),
+                        reenterPassword = etReenterPassword.getText().toString(),
+                        username = etUserName.getText().toString().trim();
+
+                if (email.equals("") || password.equals("") || reenterPassword.equals("") || username.equals("")){
+                    Toast.makeText(v.getContext(),"Please Fill in all Fields",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!password.equals(reenterPassword)){
+                    Toast.makeText(v.getContext(),"Passwords do not match. Please enter correct Password",Toast.LENGTH_SHORT).show();
+                    etPassword.setText("");
+                    etReenterPassword.setText("");
+                    return;
+                }
+
+                mAuth = FirebaseAuth.getInstance();
+
+                progressDialog = ProgressDialog.show(v.getContext(),null,"Signing Up...");
+                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        User mUser = new User();
+                        User.Builder userBuilder = new User.Builder();
+                        userBuilder
+                                .withEmail(email)
+                                .withName(username);
+
+                        mUser = userBuilder.build();
+
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/");
+                        ref.child(user.getUid()).setValue(mUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                progressDialog.dismiss();
+                                Toast.makeText(v.getContext(),"Log In successful.",Toast.LENGTH_SHORT).show();
+                                //switch to tours fragment
+                                listener.onResult(true);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                                Toast.makeText(v.getContext(), "Something went wrong. Error : " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(v.getContext(), "Log In failed. Error : " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
 
 
 
@@ -131,7 +208,7 @@ public class SignUpOptionsFragment extends Fragment {
                             Toast.makeText(v.getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
-                            loginManager.logOut();
+                            //loginManager.logOut();
                             listener.onResult(false);
                         }
 

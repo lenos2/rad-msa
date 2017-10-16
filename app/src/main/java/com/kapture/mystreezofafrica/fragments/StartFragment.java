@@ -140,7 +140,7 @@ public class StartFragment extends Fragment {
                 password = etPassword.getText().toString();
 
                 if (email.equals("") || password.equals("")){
-                    Toast.makeText(v.getContext(),"Please fill in all requied information",Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(),"Please fill in all required information",Toast.LENGTH_LONG).show();
                     return;
                 }
                 mLogin(email,password);
@@ -160,7 +160,6 @@ public class StartFragment extends Fragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                Toast.makeText(v.getContext(),"You are now logged in",Toast.LENGTH_SHORT).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -183,6 +182,7 @@ public class StartFragment extends Fragment {
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
+        progressDialog = ProgressDialog.show(v.getContext(),null,"Logging in...");
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithCredential(credential)
@@ -194,14 +194,17 @@ public class StartFragment extends Fragment {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
+                            progressDialog.dismiss();
+                            Toast.makeText(v.getContext(),"You are now logged in",Toast.LENGTH_SHORT).show();
+
                             FirebaseDatabase.getInstance().getReference("users/"+user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     //User user = dataSnapshot.getValue(User.class);
                                     //Toast.makeText(v.getContext(),"Welcome " + user.getName(),Toast.LENGTH_SHORT).show();
-                                    User user = new User();
-                                    user.setName("Leo");
-                                    listener.onClickSignIn(user);
+                                    User.Builder builder = new User.Builder();
+                                    User user = builder.withName("Test").build();
+                                    listener.onClickSignIn();
                                 }
 
                                 @Override
@@ -214,6 +217,7 @@ public class StartFragment extends Fragment {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            progressDialog.dismiss();
                             Toast.makeText(v.getContext(), "Authentication failed."  + task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
@@ -221,7 +225,6 @@ public class StartFragment extends Fragment {
                             //listener.onResult(false);
                         }
 
-                        // ...
                     }
                 });
     }
@@ -257,7 +260,7 @@ public class StartFragment extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
                             Toast.makeText(v.getContext(),"Welcome " + user.getName(),Toast.LENGTH_SHORT).show();
-                            listener.onClickSignIn(user);
+                            listener.onClickSignIn();
                         }
 
                         @Override
@@ -273,7 +276,7 @@ public class StartFragment extends Fragment {
 
 
     public interface StartFragmentListener{
-        void onClickSignIn(User user);
+        void onClickSignIn();
         void onClickSignUp();
     }
 

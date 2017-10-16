@@ -6,40 +6,74 @@ package com.kapture.mystreezofafrica.pojos;
 public class User {
 
     private String mDob;
+    private String mEmail;
     private String mGender;
     private String mName;
-    private String mProfileUrl;
+    private String mProfilePic;
 
     public String getDob() {
         return mDob;
     }
 
-    public void setDob(String dob) {
-        mDob = dob;
+    public String getEmail() {
+        return mEmail;
     }
 
     public String getGender() {
         return mGender;
     }
 
-    public void setGender(String gender) {
-        mGender = gender;
-    }
-
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        mName = name;
+    public String getProfilePic() {
+        return mProfilePic;
     }
 
-    public String getProfileUrl() {
-        return mProfileUrl;
-    }
+    public static class Builder {
 
-    public void setProfileUrl(String profileUrl) {
-        mProfileUrl = profileUrl;
+        private String mDob;
+        private String mEmail;
+        private String mGender;
+        private String mName;
+        private String mProfilePic;
+
+        public User.Builder withDob(String dob) {
+            mDob = dob;
+            return this;
+        }
+
+        public User.Builder withEmail(String email) {
+            mEmail = email;
+            return this;
+        }
+
+        public User.Builder withGender(String gender) {
+            mGender = gender;
+            return this;
+        }
+
+        public User.Builder withName(String name) {
+            mName = name;
+            return this;
+        }
+
+        public User.Builder withProfilePic(String profilePic) {
+            mProfilePic = profilePic;
+            return this;
+        }
+
+        public User build() {
+            User User = new User();
+            User.mDob = mDob;
+            User.mEmail = mEmail;
+            User.mGender = mGender;
+            User.mName = mName;
+            User.mProfilePic = mProfilePic;
+            return User;
+        }
+
     }
 
 }

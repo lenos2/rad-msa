@@ -1,90 +1,82 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/svTourDetails"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_brown_grad"
-    android:orientation="vertical"
     tools:context="com.kapture.mystreezofafrica.fragments.TourDetailsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageViewdetail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/kariba" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/bg_brown_grad"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView11"
+        <com.kapture.mystreezofafrica.custom.SquareLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Gallery"
-            android:textColor="#9effffff"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:focusableInTouchMode="true">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Program"
-            android:textColor="#9effffff"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/ivTourPicture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@mipmap/kariba" />
+        </com.kapture.mystreezofafrica.custom.SquareLayout>
 
-        <TextView
-            android:id="@+id/textView9"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Map"
-            android:textColor="#9effffff"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTourName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Vic Falls"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorBrown"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTourDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="Resting on the southern banks of the Zambezi River at the western end of the eponymous falls, this popular tourist town is compact enough to walk around and makes an ideal base for travellers exploring the seventh wonder of the world, the unfathomably vast Victoria Falls. About two thirds of the falls can be viewed from the Zimbabwean side and, while the falls are undoubtedly the star attraction, the area provides both adventure seekers and sightseers with plenty of opportunities to warrant a longer stay. Popular activities include scenic flights over the falls in helicopters or micro lights, bungee jumping off the Victoria Falls Bridge, white-water rafting (seasonal), and day trips to Chobe National Park. The town itself offers some excellent accommodation and restaurant options as well as an eclectic variety of African curios and authentic art sold by friendly Zimbabwean locals who are wonderfully welcoming and eager to help you enjoy your stay."
+                android:textColor="#000"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Transport"
-            android:textColor="#9effffff"
-            android:textSize="25dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Packages"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorBrown"
+            android:textSize="22sp"
             android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/lvPackages"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            tools:listitem="@layout/layout_tour_option" />
+
     </LinearLayout>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:visibility="gone"
-        tools:listitem="@layout/layout_tour_option" />
 
-</LinearLayout>
+</ScrollView>

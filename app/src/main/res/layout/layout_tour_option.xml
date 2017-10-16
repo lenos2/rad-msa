@@ -7,11 +7,11 @@
     android:padding="20dp">
 
     <TextView
-        android:id="@+id/tour_menu_item"
+        android:id="@+id/tvPackageName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:soundEffectsEnabled="true"
         android:text="DAILY INFORMATION"
-        android:textColor="#9effffff"
-        android:textSize="25dp" />
+        android:textColor="@color/colorBrown"
+        android:textSize="18sp" />
 </LinearLayout>
